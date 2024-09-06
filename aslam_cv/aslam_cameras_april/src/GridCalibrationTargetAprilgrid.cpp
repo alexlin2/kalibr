@@ -105,6 +105,11 @@ bool GridCalibrationTargetAprilgrid::computeObservation(
   // detect the tags
   std::vector<AprilTags::TagDetection> detections = _tagDetector->extractTags(image);
 
+  // subtract 50 from all detection ids
+  for (auto& detection : detections) {
+    detection.id -= 50;
+  }
+
   /* handle the case in which a tag is identified but not all tag
    * corners are in the image (all data bits in image but border
    * outside). tagCorners should still be okay as apriltag-lib
